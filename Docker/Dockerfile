@@ -6,7 +6,7 @@ ENV ROS_DISTRO=jazzy
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Create non-root user with arguments for username, UID, and GID
-ARG USERNAME
+ARG USERNAME=rosuser
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -40,10 +40,23 @@ WORKDIR /ros2_diff_drive_ws
 
 # Copy and set up entrypoint script
 COPY entrypoint.sh /entrypoint.sh
-# RUN chmod +x /entrypoint.sh \
-#     && mkdir -p /ros2_diff_drive_ws \
-#     && chown -R $USERNAME:$USERNAME /ros2_diff_drive_ws \
-#     && chown $USERNAME:$USERNAME /entrypoint.sh
+RUN set -e; \
+    if ! chmod +x /entrypoint.sh; then \
+        echo "Error: Failed to set executable permissions on entrypoint.sh" >&2; \
+        exit 1; \
+    fi && \
+    if ! mkdir -p /ros2_diff_drive_ws; then \
+        echo "Error: Failed to create ROS2 workspace directory" >&2; \
+        exit 1; \
+    fi && \
+    if ! chown -R $USERNAME:$USERNAME /ros2_diff_drive_ws; then \
+        echo "Error: Failed to set ownership of ROS2 workspace" >&2; \
+        exit 1; \
+    fi && \
+    if ! chown $USERNAME:$USERNAME /entrypoint.sh; then \
+        echo "Error: Failed to set ownership of entrypoint.sh" >&2; \
+        exit 1; \
+    fi
 
 # Switch to non-root user
 USER $USERNAME

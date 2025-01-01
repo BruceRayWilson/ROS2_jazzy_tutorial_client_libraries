@@ -51,5 +51,5 @@ ENV HOME=/home/$USERNAME
 ENV SHELL=/bin/bash
 
 # Use the entrypoint script
-ENTRYPOINT ["/entrypoint.sh"]
+# ENTRYPOINT ["/entrypoint.sh"]
 CMD ["bash"]

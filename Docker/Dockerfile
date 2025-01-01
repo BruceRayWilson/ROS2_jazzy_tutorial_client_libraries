@@ -5,12 +5,17 @@ FROM ros:jazzy-perception
 ENV ROS_DISTRO=jazzy
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Establish default arguments for username, UID, and GID in case they are not provided.
-ARG USERNAME=rosuser
-ARG USER_UID=$USER_UID
-ARG USER_GID=$USER_GID
+# Create non-root user with arguments for username, UID, and GID
+ARG USERNAME
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
 
-# Create user and group, install necessary packages
+# Create environment variables that persist
+ENV USERNAME=${USERNAME}
+ENV USER_UID=${USER_UID}
+ENV USER_GID=${USER_GID}
+
+# Create user and group with error handling
 RUN groupadd --gid $USER_GID $USERNAME || \
     if [ $? -eq 9 ]; then \
         groupmod -g $USER_GID $USERNAME || true; \
@@ -26,10 +31,8 @@ RUN groupadd --gid $USER_GID $USERNAME || \
         python3-colcon-common-extensions \
         ros-jazzy-gazebo-* \
         nano \
-    # Configure sudo access for user
     && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
-    # Cleanup apt cache to reduce image size
     && rm -rf /var/lib/apt/lists/*
 
 # Set up workspace directory
@@ -37,9 +40,10 @@ WORKDIR /ros2_diff_drive_ws
 
 # Copy and set up entrypoint script
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh \
-    && chown -R $USERNAME:$USERNAME /ros2_diff_drive_ws \
-    && chown $USERNAME:$USERNAME /entrypoint.sh
+# RUN chmod +x /entrypoint.sh \
+#     && mkdir -p /ros2_diff_drive_ws \
+#     && chown -R $USERNAME:$USERNAME /ros2_diff_drive_ws \
+#     && chown $USERNAME:$USERNAME /entrypoint.sh
 
 # Switch to non-root user
 USER $USERNAME

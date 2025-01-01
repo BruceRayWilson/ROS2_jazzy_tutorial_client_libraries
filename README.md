@@ -1,40 +1,21 @@
 # Jazzy
 
-## Dockerfile
-
-The Docker file is no longer named 'Docker'.  It is now named 'Dockerfile'.
-
-```docker
-# See Docker/Dockerfile
-```
-
 ## Docker Build
 
 ```bash
-cd /home/wilsonb/dl/github.com/BruceRayWilson/claude-3.5-001/ros2_diff_drive_ws
-git switch master
-cd /home/wilsonb/dl/github.com/BruceRayWilson/claude-3.5-001/ros2_diff_drive_ws/Docker/
-
-#docker build -t ros2_diff_drive_jazzy .
-docker build -t ros2_diff_drive_jazzy --build-arg USER_UID=$(id -u) --build-arg USER_GID=$(id -g) .
+./build.sh
 ```
 
 ## Docker Run
 
 ```bash
-docker run -it \
-    --name ros2_diff_drive_jazzy \
-    -v ~/dl/github.com/BruceRayWilson/claude-3.5-001/ros2_diff_drive_ws:/ros2_diff_drive_ws \
-    ros2_diff_drive_jazzy
-
-docker run -it --user $(id -u):$(id -g) --name ros2_diff_drive_jazzy -v ~/dl/github.com/BruceRayWilson/claude-3.5-001/ros2_diff_drive_ws:/ros2_diff_drive_ws ros2_diff_drive_jazzy
+./run.sh
 ```
 
 ## Docker Start
 
 ```bash
-changed
-docker start -i ros2_diff_drive
+./start.sh
 ```
 
 ## Docker Remove Image

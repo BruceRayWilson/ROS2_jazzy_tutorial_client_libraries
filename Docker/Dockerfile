@@ -11,9 +11,14 @@ ARG USER_UID=$USER_UID
 ARG USER_GID=$USER_GID
 
 # Create user and group, install necessary packages
-RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    # Install sudo and add user to sudo group
+RUN groupadd --gid $USER_GID $USERNAME || \
+    if [ $? -eq 9 ]; then \
+        groupmod -g $USER_GID $USERNAME || true; \
+    fi \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME || \
+    if [ $? -eq 9 ]; then \
+        usermod -u $USER_UID -g $USER_GID $USERNAME || true; \
+    fi \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         sudo \

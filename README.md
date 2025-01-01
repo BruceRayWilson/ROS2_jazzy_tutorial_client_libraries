@@ -11,9 +11,11 @@ The Docker file is no longer named 'Docker'.  It is now named 'Dockerfile'.
 ## Docker Build
 
 ```bash
+cd /home/wilsonb/dl/github.com/BruceRayWilson/claude-3.5-001/ros2_diff_drive_ws
+git switch master
 cd /home/wilsonb/dl/github.com/BruceRayWilson/claude-3.5-001/ros2_diff_drive_ws/Docker/
 
-docker build -t ros2_diff_drive_jazzy .
+#docker build -t ros2_diff_drive_jazzy .
 docker build -t ros2_diff_drive_jazzy --build-arg USER_UID=$(id -u) --build-arg USER_GID=$(id -g) .
 ```
 
@@ -24,6 +26,8 @@ docker run -it \
     --name ros2_diff_drive_jazzy \
     -v ~/dl/github.com/BruceRayWilson/claude-3.5-001/ros2_diff_drive_ws:/ros2_diff_drive_ws \
     ros2_diff_drive_jazzy
+
+docker run -it --user $(id -u):$(id -g) --name ros2_diff_drive_jazzy -v ~/dl/github.com/BruceRayWilson/claude-3.5-001/ros2_diff_drive_ws:/ros2_diff_drive_ws ros2_diff_drive_jazzy
 ```
 
 ## Docker Start
@@ -61,6 +65,7 @@ ros2 pkg create --build-type ament_python --dependencies rclpy std_msgs geometry
 ros2 pkg create --build-type ament_python --dependencies rclpy std_msgs sensor_msgs control_msgs launch_py --description "Generic PWM controller for robotics applications" --maintainer-email BruceRayWilson42@gmail.com --license MIT pwm_controller_generic
 
 # Build the workspace
+## This must be done at the workspace directory level!
 cd /ros2_diff_drive_ws
 colcon build
 
@@ -71,10 +76,10 @@ colcon build
 ```text
 Starting >>> diff_drive_controller_generic
 Starting >>> pwm_controller_generic
-Finished <<< pwm_controller_generic [0.62s]
-Finished <<< diff_drive_controller_generic [0.63s]
-
-Summary: 2 packages finished [0.71s]
+Finished <<< diff_drive_controller_generic [0.70s]                                                      
+Finished <<< pwm_controller_generic [0.70s]
+                     
+Summary: 2 packages finished [0.77s]
 ```
 
 ## Commit Changes

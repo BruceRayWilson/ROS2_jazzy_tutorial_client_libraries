@@ -45,14 +45,14 @@ Restart the container that has already be run once.
 If necessary:
 
 ```bash
-docker rmi -f ros2_diff_drive
+docker rmi -f ros2_jazzy_tutorial_client_libraries
 ```
 
 ## ROS2 Workspace
 
 ```bash
 # Inside the container...
-cd /ros2_diff_drive_ws/src
+cd /ros2_ws/src
 
 # Create a new package for the controller
 ros2 pkg create --build-type ament_python --dependencies rclpy std_msgs geometry_msgs nav_msgs tf2 tf2_ros control_msgs sensor_msgs test_msgs launch_py --description "Generic diff drive controller" --maintainer-email BruceRayWilson42@gmail.com --license MIT diff_drive_controller_generic
@@ -63,7 +63,7 @@ ros2 pkg create --build-type ament_python --dependencies rclpy std_msgs sensor_m
 
 # Build the workspace
 ## This must be done at the workspace directory level!
-cd /ros2_diff_drive_ws
+cd /ros2_ws
 colcon build
 
 ```

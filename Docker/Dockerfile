@@ -16,12 +16,12 @@ ENV USER_UID=${USER_UID}
 ENV USER_GID=${USER_GID}
 
 # Set up workspace directory
-WORKDIR /ros2_diff_drive_ws
+WORKDIR /ros2_ws
 
 # Copy and set up entrypoint script
 COPY entrypoint.sh /entrypoint.sh
 
-RUN chown -R $USER_UID:$USER_GID /ros2_diff_drive_ws /entrypoint.sh
+RUN chown -R $USER_UID:$USER_GID /ros2_ws /entrypoint.sh
 
 # Ensure the script is executable
 RUN chmod +x /entrypoint.sh

@@ -1,1 +1,1 @@
-docker build -t ros2_diff_drive_jazzy .
+docker build -t ros2_jazzy_tutorial_client_libraries .

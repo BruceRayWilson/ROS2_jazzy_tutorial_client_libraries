@@ -6,7 +6,7 @@ Docker containers by default run as the 'root' user.  This can create massive pr
 
 ### Small Example
 
-When creating ROS2 packages, all of the newly created files are owned by 'root'.  This prevented editing and deleting the files without using the 'sudo' command.
+When creating ROS2 packages inside the container, all of the newly created files are owned by 'root'.  This prevented editing and deleting the files without using the 'sudo' command outside the container.
 
 ## Description
 

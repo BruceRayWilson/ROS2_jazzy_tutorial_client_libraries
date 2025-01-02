@@ -18,7 +18,7 @@ Build the container.
 
 ```bash
 cd Docker
-./build.sh
+../build.sh
 cd ..
 ```
 

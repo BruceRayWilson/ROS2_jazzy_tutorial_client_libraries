@@ -57,10 +57,10 @@ colcon build
 ```text
 Starting >>> diff_drive_controller_generic
 Starting >>> pwm_controller_generic
-Finished <<< diff_drive_controller_generic [0.70s]                                                      
-Finished <<< pwm_controller_generic [0.70s]
-                     
-Summary: 2 packages finished [0.77s]
+Finished <<< pwm_controller_generic [1.10s]                                                             
+Finished <<< diff_drive_controller_generic [1.11s]
+
+Summary: 2 packages finished [1.31s]
 ```
 
 ## Commit Changes

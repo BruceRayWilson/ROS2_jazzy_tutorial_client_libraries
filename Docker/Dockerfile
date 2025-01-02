@@ -23,6 +23,9 @@ COPY entrypoint.sh /entrypoint.sh
 
 RUN chown -R $USER_UID:$USER_GID /ros2_diff_drive_ws /entrypoint.sh
 
+# Ensure the script is executable
+RUN chmod +x /entrypoint.sh
+
 # Create user and group with error handling
 RUN groupadd --gid $USER_GID $USERNAME || \
     if [ $? -eq 9 ]; then \
@@ -51,5 +54,5 @@ ENV HOME=/home/$USERNAME
 ENV SHELL=/bin/bash
 
 # Use the entrypoint script
-# ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["bash"]

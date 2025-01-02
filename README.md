@@ -17,7 +17,9 @@ Creates a Docker container that uses a regular user and not the 'root' user.
 Build the container.
 
 ```bash
+cd Docker
 ./build.sh
+cd ..
 ```
 
 ## Docker Run

@@ -10,7 +10,7 @@ When creating ROS2 packages inside the container, all of the newly created files
 
 ## Description
 
-Create a Docker container that uses a regular user and not the 'root' user.
+Creates a Docker container that uses a regular user and not the 'root' user.
 
 ## Docker Build
 

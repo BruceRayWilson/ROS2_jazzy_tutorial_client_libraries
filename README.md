@@ -1,6 +1,20 @@
 # Jazzy
 
+## Background
+
+Docker containers by default run as the 'root' user.  This can create massive problems.
+
+### Small Example
+
+When creating ROS2 packages, all of the newly created files are owned by 'root'.  This prevented editing and deleting the files without using the 'sudo' command.
+
+## Description
+
+Create a Docker container that uses a regular user and not the 'root' user.
+
 ## Docker Build
+
+Build the container.
 
 ```bash
 ./build.sh
@@ -8,11 +22,17 @@
 
 ## Docker Run
 
+Run the container for the first time.
+
+Running this twice in a row will generate an error.
+
 ```bash
 ./run.sh
 ```
 
 ## Docker Start
+
+Restart the container that has already be run once.
 
 ```bash
 ./start.sh
@@ -24,12 +44,6 @@ If necessary:
 
 ```bash
 docker rmi -f ros2_diff_drive
-```
-
-## Upgrade Docker
-
-```bash
-sudo apt upgrade docker.io -y
 ```
 
 ## ROS2 Workspace
@@ -68,6 +82,12 @@ Summary: 2 packages finished [1.31s]
 1. Exit container
 2. git add .
 3. git commit -am "After colcon build."
+
+## Finished
+
+All files are owned by the user and not 'root'.
+
+## Ignore from here to the end
 
 ## Create Differential Drive Controller Node
 

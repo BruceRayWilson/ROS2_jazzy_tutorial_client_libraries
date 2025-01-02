@@ -89,7 +89,7 @@ All files are owned by the user and not 'root'.
 
 ## Docker Docs
 
-https://docs.docker.com/engine/containers/run/#user
+[Dockerfile USER Command](https://docs.docker.com/engine/containers/run/#user)
 
 ## Ignore from here to the end
 

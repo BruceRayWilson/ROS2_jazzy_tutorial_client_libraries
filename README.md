@@ -48,6 +48,20 @@ If necessary:
 docker rmi -f ros2_jazzy_tutorial_client_libraries
 ```
 
+## tmux
+
+You can use tmux to manage multiple terminals inside the same container.
+
+1. Start tmux in the container:
+
+    ```bash
+    tmux
+    ```
+
+2. In one pane, run the publisher.
+
+3. Create a new pane (press Ctrl+B, then %) and run the subscriber.
+
 ## ROS2 Workspace
 
 ```bash

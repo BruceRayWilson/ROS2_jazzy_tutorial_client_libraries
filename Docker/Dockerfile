@@ -6,7 +6,7 @@ ENV ROS_DISTRO=jazzy
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Create non-root user with arguments for username, UID, and GID
-ARG USERNAME=rosuser
+ARG USERNAME=ubuntu
 ARG USER_UID=1000
 ARG USER_GID=1000
 
@@ -35,6 +35,9 @@ RUN groupadd --gid $USER_GID $USERNAME || \
     if [ $? -eq 9 ]; then \
         usermod -u $USER_UID -g $USER_GID $USERNAME || true; \
     fi \
+    && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME \
+    && echo "$USERNAME:ubuntu" | chpasswd \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         sudo \
@@ -42,8 +45,8 @@ RUN groupadd --gid $USER_GID $USERNAME || \
         python3-colcon-common-extensions \
         ros-jazzy-gazebo-* \
         nano \
-    && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME \
+        wget \
+        tmux \
     && rm -rf /var/lib/apt/lists/*
 
 # Switch to non-root user
